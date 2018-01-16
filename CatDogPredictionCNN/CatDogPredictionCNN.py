@@ -8,9 +8,9 @@ from keras.preprocessing.image import ImageDataGenerator
 
 K.set_image_dim_ordering('th')
 classifier = Sequential()
-classifier.add(Convolution2D(32,(3,3),input_shape=(3,64,64),activation='relu'))
+classifier.add(Convolution2D(64,(3,3),input_shape=(3,128,128),activation='relu'))
 classifier.add(MaxPooling2D(pool_size=(2,2)))
-classifier.add(Convolution2D(32,(3,3),activation='relu'))
+classifier.add(Convolution2D(64,(3,3),activation='relu'))
 classifier.add(MaxPooling2D(pool_size=(2,2)))
 classifier.add(Flatten())
 classifier.add(Dense(activation='relu',units=128))
@@ -25,13 +25,13 @@ test_datagen = ImageDataGenerator(
         rescale=1./255)
 train = train_datagen.flow_from_directory(
         'dataset/training_set',
-        target_size=(64,64),
+        target_size=(128,128),
         batch_size=32,
         class_mode='binary')
 test = test_datagen.flow_from_directory(
         'dataset/test_set',
-        target_size=(64,64),
-        batch_size=32,
+        target_size=(128,128),
+        batch_size=20,
         class_mode='binary')
 classifier.fit_generator(
         train,
